@@ -1,0 +1,15 @@
+*.jar
+*.war
+*.ear
+*.tar.gz
+hs_err_pid*
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+.gradle/
+gradle/
+build/
+gradle-app.setting
+!gradle-wrapper.jar

@@ -1,0 +1,27 @@
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'application'
+apply plugin: 'idea'
+
+// Define the main class for the application
+mainClassName = 'de.philipppixel.featherwhite.app.FeatherWhite'
+
+sourceCompatibility=1.8
+targetCompatibility=1.8
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.4.12'
+    // This dependency is found on compile classpath of this component and consumers.
+    compile 'com.google.guava:guava:22.0'
+    testCompile 'junit:junit:4.12'
+    compile 'org.neo4j:neo4j:3.2.5'
+    compile 'org.neo4j:neo4j-kernel:3.2.5'
+    compile 'org.neo4j:neo4j-graphdb-api:3.2.5'
+    compile 'org.neo4j:neo4j-ogm-core:3.0.0'
+    compile 'org.neo4j:neo4j-ogm-embedded-driver:3.0.0'
+}
