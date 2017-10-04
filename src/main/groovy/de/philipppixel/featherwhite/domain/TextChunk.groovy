@@ -12,13 +12,29 @@ class TextChunk extends Entity {
     private Set<TextChunk> parentTextChunks
     @Relationship(type="SUCCESSOR", direction="OUTGOING")
     private Set<TextChunk> childTextChunks
-    private String chunkHash
+    private String chunkHash = ""
 
     TextChunk() {
     }
 
+    String getContent() {
+        return content
+    }
+
+    void setContent(String content) {
+        this.content = content
+    }
+
+    String getContentAbstract() {
+        return contentAbstract
+    }
+
+    void setContentAbstract(String contentAbstract) {
+        this.contentAbstract = contentAbstract
+    }
+
     @Override
     String toString() {
-        return contentAbstract
+        return "@" + super.getId() + ": " + contentAbstract
     }
 }

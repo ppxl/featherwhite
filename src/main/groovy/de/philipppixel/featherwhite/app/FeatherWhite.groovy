@@ -1,41 +1,73 @@
 package de.philipppixel.featherwhite.app
 
 import de.philipppixel.featherwhite.database.Neo4jSessionFactory
+import de.philipppixel.featherwhite.domain.TextChunk
 import org.neo4j.graphdb.GraphDatabaseService
 import org.neo4j.graphdb.factory.GraphDatabaseFactory
-import org.neo4j.graphdb.Result
-import org.neo4j.ogm.model.Result
-import org.neo4j.ogm.session.Session
-import java.io.File
+import org.neo4j.ogm.config.ClasspathConfigurationSource
+import org.neo4j.ogm.config.Configuration
+import org.neo4j.ogm.config.ConfigurationSource
+import org.neo4j.ogm.transaction.Transaction
 
-public class FeatherWhite {
+class FeatherWhite {
 
-    public static void main(String[] args) {
-        def DB_PATH = "./featherwhite.db"
-        def graphDb = new GraphDatabaseFactory().newEmbeddedDatabase(new File(DB_PATH))
-        registerShutdownHook(graphDb);
+    static void main(String[] args) {
+        new FeatherWhite()
+    }
 
-        Session session = Neo4jSessionFactory.getInstance().getNeo4jSession()
+    FeatherWhite() {
+        def DB_PATH = "/home/pxlphile/IdeaProjects/featherwhite/build/distributions/featherwhite/db"
+        GraphDatabaseService graphDb = new GraphDatabaseFactory().newEmbeddedDatabase(new File(DB_PATH))
 
-        String query = "MATCH (root:TextChunk)<-[:ANCESTOR *1..]-(child:TextChunk) return root"
-        Result result = Neo4jSessionFactory.getInstance().getNeo4jSession().query(query, Collections.EMPTY_MAP)
+        registerShutdownHook(graphDb)
 
+        Iterable<TextChunk> result = matchAllChunks()
+        printResult(result)
+
+        appendChunk("Guten Tag\n\nMein Name ist sowieso und ich regiere hier.")
+        result = matchAllChunks()
         printResult(result)
     }
 
-    static void printResult(Result result) {
-        println(result)
+    private void appendChunk(String content) {
+        def session = Neo4jSessionFactory.INSTANCE.getSession().openSession()
+        Transaction tx = session.beginTransaction()
+
+        def chunk = new TextChunk()
+        chunk.setContent(content)
+        chunk.setContentAbstract(content)
+        session.save(chunk)
+
+        tx.commit()
+        tx.close()
     }
 
-    private static void registerShutdownHook(final GraphDatabaseService graphDb) {
-        // Registers a shutdown hook for the Neo4j instance so that it
-        // shuts down nicely when the VM exits (even if you "Ctrl-C" the
-        // running application).
+    private Iterable<TextChunk> matchAllChunks() {
+        def session = Neo4jSessionFactory.INSTANCE.getSession().openSession()
+        String query = "MATCH (root:TextChunk)" +
+//                "<-[:ANCESTOR *0..]-(child:TextChunk)" +
+                " return root"
+        session.query(TextChunk.class, query, Collections.EMPTY_MAP)
+    }
+
+    static void printResult(Iterable<TextChunk> result) {
+        println "print result for " + result
+        for (TextChunk thing : result) {
+            printf("Key: %s", thing)
+        }
+    }
+
+    /**
+     * Registers a shutdown hook for the Neo4j instance so that it
+     * shuts down nicely when the VM exits (even if you "Ctrl-C" the
+     * running application).
+     */
+    static void registerShutdownHook(final GraphDatabaseService graphDb) {
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
-            public void run() {
-                graphDb.shutdown();
+            void run() {
+                graphDb.shutdown()
             }
-        });
+        })
     }
 }

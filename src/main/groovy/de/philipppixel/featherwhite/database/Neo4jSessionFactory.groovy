@@ -1,22 +1,23 @@
 package de.philipppixel.featherwhite.database
 
+import org.neo4j.ogm.config.ClasspathConfigurationSource
+import org.neo4j.ogm.config.Configuration
+import org.neo4j.ogm.config.ConfigurationSource
 import org.neo4j.ogm.session.Session
 import org.neo4j.ogm.session.SessionFactory
 
-class Neo4jSessionFactory {
+enum Neo4jSessionFactory {
 
-    private final static SessionFactory sessionFactory = new SessionFactory("de.philipppixel.featherwhite");
-    private static Neo4jSessionFactory factory = new Neo4jSessionFactory();
+    INSTANCE
 
-    static Neo4jSessionFactory getInstance() {
-        return factory;
+    private final static SessionFactory sessionFactory = new SessionFactory(buildConfigForPropertyFile(),"de.philipppixel.featherwhite")
+
+    SessionFactory getSession() {
+        return sessionFactory
     }
 
-    // prevent external instantiation
-    private Neo4jSessionFactory() {
-    }
-
-    Session getNeo4jSession() {
-        return sessionFactory.openSession();
+    private static Configuration buildConfigForPropertyFile() {
+        ConfigurationSource props = new ClasspathConfigurationSource("ogm.properties")
+        return new Configuration.Builder(props).build()
     }
 }
