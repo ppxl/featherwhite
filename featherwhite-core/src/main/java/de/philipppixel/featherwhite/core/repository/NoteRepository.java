@@ -1,4 +1,4 @@
-package de.philipppixel.featherwhite.core.app;
+package de.philipppixel.featherwhite.core.repository;
 
 import de.philipppixel.featherwhite.core.domain.Note;
 import org.springframework.data.repository.CrudRepository;

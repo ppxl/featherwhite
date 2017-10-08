@@ -19,8 +19,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     compile 'org.springframework.data:spring-data-neo4j:5.0.0.RELEASE'
-//    compile 'org.neo4j:neo4j:3.2.5'
-//    compile 'org.neo4j:neo4j-kernel:3.2.5'
-//    compile 'org.neo4j:neo4j-graphdb-api:3.2.5'
+    compile 'org.neo4j:neo4j:3.2.5'
+    compile 'org.neo4j:neo4j-kernel:3.2.5'
+    compile 'org.neo4j:neo4j-graphdb-api:3.2.5'
     compile 'org.neo4j:neo4j-ogm-embedded-driver:3.0.0'
 }

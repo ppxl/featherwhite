@@ -15,29 +15,28 @@ public class TextChunkServiceImpl implements TextChunkService {
     public void doSomething() {
 
         Iterable<TextChunk> result = matchAllChunks();
-        printResult(result);
+        printResult(result, "EMPTY set");
 
-        appendChunk("Guten Tag\n\nMein Name ist sowieso und ich regiere hier.");
+        TextChunk chunk = new TextChunk("Guten Tag\n\nMein Name ist sowieso und ich regiere hier.", "Guten Tag");
+        repo.save(chunk);
+        TextChunk chunk1 = new TextChunk("Guten Abend", "Guten Abend");
+        chunk.getChildTextChunks().add(chunk1);
         result = matchAllChunks();
-        printResult(result);
-
-        exit(0);
-    }
-
-    private void appendChunk(String content) {
-        TextChunk chunk = new TextChunk();
-        chunk.setContent(content);
-        chunk.setContentAbstract(content);
+        printResult(result, "in between");
         repo.save(chunk);
 
+        result = matchAllChunks();
+        printResult(result, "after save");
+
+        exit(0);
     }
 
     private Iterable<TextChunk> matchAllChunks() {
         return repo.findAll();
     }
 
-    static void printResult(Iterable<TextChunk> result) {
-        System.out.println("print result for " + result);
+    static void printResult(Iterable<TextChunk> result, String comment) {
+        System.out.println("==== print result for " + result + " ==== " + comment);
         for (TextChunk thing : result) {
             System.out.printf("Key: %s", thing);
         }

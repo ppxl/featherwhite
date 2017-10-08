@@ -14,7 +14,7 @@ import static org.neo4j.ogm.config.Configuration.Builder;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan("de.philipppixel.featherwhite")
-@EnableNeo4jRepositories("de.philipppixel.featherwhite.repository")
+@EnableNeo4jRepositories("de.philipppixel.featherwhite.core.repository")
 public class PersistenceContext {
 
     @Bean
