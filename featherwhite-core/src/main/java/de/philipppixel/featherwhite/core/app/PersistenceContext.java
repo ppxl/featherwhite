@@ -1,4 +1,4 @@
-package de.philipppixel.featherwhite.app;
+package de.philipppixel.featherwhite.core.app;
 
 import org.neo4j.ogm.session.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

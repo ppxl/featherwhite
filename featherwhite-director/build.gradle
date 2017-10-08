@@ -1,0 +1,22 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'application'
+
+group 'de.philipppixel.featherwhite'
+version '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// Define the main class for the application
+mainClassName = 'de.philipppixel.featherwhite.director.FeatherWhite'
+
+repositories {
+    maven {
+        url 'https://repo.spring.io/libs-release'
+    }
+}
+
+dependencies {
+    compile project(':featherwhite-core')
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

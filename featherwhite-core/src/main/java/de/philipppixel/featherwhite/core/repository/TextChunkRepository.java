@@ -1,6 +1,6 @@
-package de.philipppixel.featherwhite.repository;
+package de.philipppixel.featherwhite.core.repository;
 
-import de.philipppixel.featherwhite.domain.TextChunk;
+import de.philipppixel.featherwhite.core.domain.TextChunk;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.repository.CrudRepository;
 

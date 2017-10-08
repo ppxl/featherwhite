@@ -1,0 +1,26 @@
+//apply plugin: 'groovy'
+apply plugin: 'java'
+apply plugin: 'idea'
+
+group = 'de.philipppixel.featherwhite'
+version = '0.0.1-SNAPSHOT'
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    maven {
+        url 'https://repo.spring.io/libs-release'
+    }
+}
+
+dependencies {
+//    compile 'org.codehaus.groovy:groovy-all:2.4.12'
+    // This dependency is found on compile classpath of this component and consumers.
+    compile 'com.google.guava:guava:22.0'
+    testCompile 'junit:junit:4.12'
+
+    compile 'org.springframework.data:spring-data-neo4j:5.0.0.RELEASE'
+//    compile 'org.neo4j:neo4j:3.2.5'
+//    compile 'org.neo4j:neo4j-kernel:3.2.5'
+//    compile 'org.neo4j:neo4j-graphdb-api:3.2.5'
+    compile 'org.neo4j:neo4j-ogm-embedded-driver:3.0.0'
+}

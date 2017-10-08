@@ -1,4 +1,4 @@
-package de.philipppixel.featherwhite.domain;
+package de.philipppixel.featherwhite.core.domain;
 
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.GraphId;

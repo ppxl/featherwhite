@@ -1,17 +1,16 @@
-package de.philipppixel.featherwhite.app;
+package de.philipppixel.featherwhite.core.app;
 
-import de.philipppixel.featherwhite.domain.TextChunk;
-import de.philipppixel.featherwhite.repository.TextChunkRepository;
+import de.philipppixel.featherwhite.core.domain.TextChunk;
+import de.philipppixel.featherwhite.core.repository.TextChunkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import static java.lang.System.exit;
 
 @Component
-public class TextChunkService {
+public class TextChunkServiceImpl implements TextChunkService {
     @Autowired
-    TextChunkRepository repo;
-
+    private TextChunkRepository repo;
 
     public void doSomething() {
 
